@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ThemeService } from './core/services/utilities/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +13,8 @@ import { RouterOutlet } from '@angular/router';
   styles: [],
 })
 export class AppComponent {
-  title = 'ngmuradi';
+  constructor() {
+    inject(ThemeService).setupDeviceThemeListener();
+  }
 }
+ 

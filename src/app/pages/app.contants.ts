@@ -1,4 +1,4 @@
-export const TITLE_NAME = "ngMradi";
+export const TITLE_NAME = "ngMuradi";
 export const COMPANY_NAME = 'Software Solution';
 
 export const IS_SMALL = 576;

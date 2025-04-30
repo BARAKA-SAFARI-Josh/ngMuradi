@@ -12,6 +12,8 @@ import { StateService } from '../../../core/services/utilities/state.service';
 import { ThemeMode, ThemeService } from '../../../core/services/utilities/theme.service';
 import { WindowsObserverService } from '../../../core/services/utilities/windows-observer.service';
 import { IS_MEDIUM, TITLE_NAME } from '../../app.contants';
+import { AuthService } from '../../../core/services/firebase/auth.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,6 +24,7 @@ import { IS_MEDIUM, TITLE_NAME } from '../../app.contants';
     MatTooltipModule,
     MatMenuModule,
     MatDividerModule,
+    AsyncPipe,
   ],
   template: `
        <mat-toolbar>
@@ -41,7 +44,7 @@ import { IS_MEDIUM, TITLE_NAME } from '../../app.contants';
           <mat-icon>notifications</mat-icon>
         </button>
         <img
-          src="asset/avatar.png"
+          [src]="(userData|async)?.photoURL ?? 'asset/avatar.png'"
           alt="Avatar profile"
           width="32px"
           height="32px"
@@ -104,6 +107,8 @@ export class ToolbarComponent {
   appName = TITLE_NAME;
   isMedium = IS_MEDIUM;
   state = inject(StateService);
+  auth = inject(AuthService);
+  userData = this.auth.userdata;
   viewport = inject(WindowsObserverService).width;
   ts = inject(ThemeService);
   router = inject(Router);
@@ -112,7 +117,8 @@ export class ToolbarComponent {
 
   toggleDrawer = () => this.state.isToggleDrawer.update((value) => !value);
 
-  logOut() {
+  async logOut() {
+    await this.auth.logOut();
     this.router.navigate(['/login']);
   }
 }
