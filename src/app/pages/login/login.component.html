@@ -1,0 +1,42 @@
+<mat-card appearance="outlined" style="max-width: max-content; margin: 2rem auto;">
+    <mat-card-header>
+        <mat-card-title align="center">
+            <b>{{appName}}</b>
+        </mat-card-title>
+        <mat-card-subtitle>
+            Connectez-vous et gérer vos projets en un clic
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider/>
+    <mat-card-content>
+       <main style="padding: 1rem 0;">
+        <button mat-flat-button align="center" (click)="loginWithGoogle()" style="width: 100%;">
+            Connectez avec google
+        </button>
+        <div class="divider">
+            <mat-divider/>
+            <span>Ou avec</span>
+            <mat-divider/>
+        </div>
+        <form #emailForm="ngForm" align="end">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>E-mail</mat-label>
+                <input matInput ngModel name="email" type="email" required email placeholder="example@compagny.org" #email="ngModel" >
+                @if (!email.errors?.['required'] && email.errors?.['email']) {
+                    <mat-error>E-mail invalide svp !</mat-error>
+                }@if (email.errors?.['required']) {
+                    <mat-error>E-mail est obligatoire svp !</mat-error>
+                }  
+            </mat-form-field>
+            <button class="" mat-stroked-button type="submit" [disabled]="emailForm.invalid">
+                Continuer                
+            </button>
+        </form>   
+       </main>
+    </mat-card-content>
+    <mat-divider/>
+    <mat-card-footer align="center" style="padding: 1rem 0;">
+        {{appName}}©{{date.getFullYear()}}, propulsé par 
+        <a href="https://github.com/BARAKA-SAFARI-Josh" target="_blank">{{campanyName}}</a>
+    </mat-card-footer>
+</mat-card>
